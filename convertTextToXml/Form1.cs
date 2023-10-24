@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace convertTextToXml
 {
@@ -60,9 +61,15 @@ namespace convertTextToXml
                 }
                 if (txtTextfile.Lines.Length == 24)
                 {
-                    lblAantalLijnenTekst.Text = "Aantal lijnen is correct, conversie kan beginnen!";
-                    btnConverteer.Enabled = true;
-
+                    if (XMLVariables.XMLFileName == "")
+                    {
+                        lblAantalLijnenTekst.Text = "Aantal lijnen is correct, maar je moet nog een XML bestand inladen!";
+                    }
+                    else
+                    {
+                        lblAantalLijnenTekst.Text = "Aantal lijnen is correct, conversie kan beginnen!";
+                        btnConverteer.Enabled = true;
+                    }
                 }
                 else
                 {
@@ -79,7 +86,49 @@ namespace convertTextToXml
             if (ofdXML.ShowDialog() == DialogResult.OK)
             {
                 lstXML.Items.AddRange(File.ReadAllLines(ofdXML.FileName));
+                XMLVariables.XMLFileName = ofdXML.FileName;
+                btnConverteer.Enabled = true;
+                lblAantalLijnenTekst.Text = "Aantal lijnen is correct, conversie kan beginnen!";
             }
+            
+        }
+
+        private void btnConverteer_Click(object sender, EventArgs e)
+        {
+
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(XMLVariables.XMLFileName);
+            XmlNodeList nodes = xmlDocument.SelectNodes("//en-US/*");
+
+            if (nodes.Count > 0)
+            {
+                lstXML.Items.Clear();
+                for (int i = 0; i < txtTextfile.Lines.Length - 1; i++)
+                {
+                    nodes[i].InnerText = txtTextfile.Lines[i];
+               
+                }
+                foreach (XmlNode item in nodes)
+                {
+                    lstXML.Items.Add(item.OuterXml);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("No child nodes were found for 'en-us'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        static class XMLVariables
+        {
+            static public string XMLFileName { get; set; }
+
+        }
+
+        private void slaXMLBestandOp_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

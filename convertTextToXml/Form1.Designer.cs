@@ -43,6 +43,9 @@
             this.btnConverteer = new System.Windows.Forms.Button();
             this.ofdXML = new System.Windows.Forms.OpenFileDialog();
             this.grpFilesView = new System.Windows.Forms.GroupBox();
+            this.sfdXML = new System.Windows.Forms.SaveFileDialog();
+            this.sfdTextFile = new System.Windows.Forms.SaveFileDialog();
+            this.btnXMLtoText = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.grpFilesView.SuspendLayout();
             this.SuspendLayout();
@@ -105,14 +108,16 @@
             // slaTeksbestandOp
             // 
             this.slaTeksbestandOp.Name = "slaTeksbestandOp";
-            this.slaTeksbestandOp.Size = new System.Drawing.Size(180, 22);
+            this.slaTeksbestandOp.Size = new System.Drawing.Size(218, 22);
             this.slaTeksbestandOp.Text = "Sla teksbestand op";
             // 
             // slaXMLBestandOp
             // 
             this.slaXMLBestandOp.Name = "slaXMLBestandOp";
-            this.slaXMLBestandOp.Size = new System.Drawing.Size(180, 22);
+            this.slaXMLBestandOp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.slaXMLBestandOp.Size = new System.Drawing.Size(218, 22);
             this.slaXMLBestandOp.Text = "Sla XML bestand op";
+            this.slaXMLBestandOp.Click += new System.EventHandler(this.slaXMLBestandOp_Click);
             // 
             // ofdTextFile
             // 
@@ -123,7 +128,7 @@
             // 
             this.lblAantalLijnenTekst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblAantalLijnenTekst.AutoSize = true;
-            this.lblAantalLijnenTekst.Location = new System.Drawing.Point(16, 393);
+            this.lblAantalLijnenTekst.Location = new System.Drawing.Point(16, 383);
             this.lblAantalLijnenTekst.Name = "lblAantalLijnenTekst";
             this.lblAantalLijnenTekst.Size = new System.Drawing.Size(0, 13);
             this.lblAantalLijnenTekst.TabIndex = 2;
@@ -136,7 +141,7 @@
             this.txtTextfile.Multiline = true;
             this.txtTextfile.Name = "txtTextfile";
             this.txtTextfile.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txtTextfile.Size = new System.Drawing.Size(480, 355);
+            this.txtTextfile.Size = new System.Drawing.Size(480, 345);
             this.txtTextfile.TabIndex = 3;
             // 
             // lstXML
@@ -148,18 +153,19 @@
             this.lstXML.HorizontalScrollbar = true;
             this.lstXML.Location = new System.Drawing.Point(502, 29);
             this.lstXML.Name = "lstXML";
-            this.lstXML.Size = new System.Drawing.Size(490, 355);
+            this.lstXML.Size = new System.Drawing.Size(490, 342);
             this.lstXML.TabIndex = 4;
             // 
             // btnConverteer
             // 
             this.btnConverteer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnConverteer.Location = new System.Drawing.Point(21, 488);
+            this.btnConverteer.Location = new System.Drawing.Point(138, 472);
             this.btnConverteer.Name = "btnConverteer";
-            this.btnConverteer.Size = new System.Drawing.Size(75, 23);
+            this.btnConverteer.Size = new System.Drawing.Size(183, 23);
             this.btnConverteer.TabIndex = 5;
-            this.btnConverteer.Text = "Converteer";
+            this.btnConverteer.Text = "Converteer van tekst naar XML";
             this.btnConverteer.UseVisualStyleBackColor = true;
+            this.btnConverteer.Click += new System.EventHandler(this.btnConverteer_Click);
             // 
             // ofdXML
             // 
@@ -175,15 +181,34 @@
             this.grpFilesView.Controls.Add(this.lblAantalLijnenTekst);
             this.grpFilesView.Location = new System.Drawing.Point(15, 38);
             this.grpFilesView.Name = "grpFilesView";
-            this.grpFilesView.Size = new System.Drawing.Size(1020, 426);
+            this.grpFilesView.Size = new System.Drawing.Size(1020, 416);
             this.grpFilesView.TabIndex = 6;
             this.grpFilesView.TabStop = false;
+            // 
+            // sfdXML
+            // 
+            this.sfdXML.Filter = "XML Bestanden | *.xml";
+            // 
+            // sfdTextFile
+            // 
+            this.sfdTextFile.Filter = "Tekstbestanden | *.txt";
+            // 
+            // btnXMLtoText
+            // 
+            this.btnXMLtoText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnXMLtoText.Location = new System.Drawing.Point(701, 472);
+            this.btnXMLtoText.Name = "btnXMLtoText";
+            this.btnXMLtoText.Size = new System.Drawing.Size(183, 23);
+            this.btnXMLtoText.TabIndex = 7;
+            this.btnXMLtoText.Text = "Converteer van XML naar tekst";
+            this.btnXMLtoText.UseVisualStyleBackColor = true;
             // 
             // frmConvertTxtToXml
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1087, 532);
+            this.ClientSize = new System.Drawing.Size(1087, 522);
+            this.Controls.Add(this.btnXMLtoText);
             this.Controls.Add(this.grpFilesView);
             this.Controls.Add(this.btnConverteer);
             this.Controls.Add(this.menuStrip1);
@@ -216,6 +241,9 @@
         private System.Windows.Forms.Button btnConverteer;
         private System.Windows.Forms.OpenFileDialog ofdXML;
         private System.Windows.Forms.GroupBox grpFilesView;
+        private System.Windows.Forms.SaveFileDialog sfdXML;
+        private System.Windows.Forms.SaveFileDialog sfdTextFile;
+        private System.Windows.Forms.Button btnXMLtoText;
     }
 }
 
