@@ -143,6 +143,7 @@
             this.txtTextfile.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.txtTextfile.Size = new System.Drawing.Size(480, 345);
             this.txtTextfile.TabIndex = 3;
+            this.txtTextfile.TextChanged += new System.EventHandler(this.txtTextfile_TextChanged);
             // 
             // lstXML
             // 

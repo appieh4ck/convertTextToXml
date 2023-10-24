@@ -96,15 +96,15 @@ namespace convertTextToXml
         private void btnConverteer_Click(object sender, EventArgs e)
         {
 
-            XmlDocument xmlDocument = new XmlDocument();
-            if (XMLVariables.XMLFileName == "")
+            XMLVariables.XMLDocument = new XmlDocument();
+            if (XMLVariables.XMLFileName == null)
             {
                 MessageBox.Show("XML bestand is niet ingeladen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                xmlDocument.Load(XMLVariables.XMLFileName);
-                XmlNodeList nodes = xmlDocument.SelectNodes("//en-US/*");
+                XMLVariables.XMLDocument.Load(XMLVariables.XMLFileName);
+                XmlNodeList nodes = XMLVariables.XMLDocument.SelectNodes("//en-US/*");
 
                 if (nodes.Count > 0)
                 {
@@ -126,16 +126,39 @@ namespace convertTextToXml
                 }
             }
         }
+        private void slaXMLBestandOp_Click(object sender, EventArgs e)
+        {
+            if (sfdXML.ShowDialog() == DialogResult.OK)
+            {
+                XMLVariables.XMLDocument.Save(sfdXML.FileName);
+            }
+        }
 
         static class XMLVariables
         {
             static public string XMLFileName { get; set; }
-
+            static public XmlDocument XMLDocument { get; set; }
         }
 
-        private void slaXMLBestandOp_Click(object sender, EventArgs e)
+        private void txtTextfile_TextChanged(object sender, EventArgs e)
         {
-
+            if (txtTextfile.Lines.Length == 24)
+            {
+                if (XMLVariables.XMLFileName == null)
+                {
+                    lblAantalLijnenTekst.Text = "Aantal lijnen is correct, maar je moet nog een XML bestand inladen!";
+                }
+                else
+                {
+                    lblAantalLijnenTekst.Text = "Aantal lijnen is correct, conversie kan beginnen!";
+                    btnConverteer.Enabled = true;
+                }
+            }
+            else
+            {
+                lblAantalLijnenTekst.Text = "Aantal lijnen is incorrect!";
+                btnConverteer.Enabled = false;
+            }
         }
     }
 }
