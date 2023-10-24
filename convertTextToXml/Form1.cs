@@ -30,7 +30,8 @@ namespace convertTextToXml
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            btnConverteer.Enabled = false;
+            
         }
 
         private void slaXMLOpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,9 +58,27 @@ namespace convertTextToXml
                         txtTextfile.AppendText(Environment.NewLine);
                     }
                 }
+                if (txtTextfile.Lines.Length == 24)
+                {
+                    lblAantalLijnenTekst.Text = "Aantal lijnen is correct, conversie kan beginnen!";
+                    btnConverteer.Enabled = true;
+
+                }
+                else
+                {
+                    lblAantalLijnenTekst.Text = "Aantal lijnen is incorrect!";
+                }
             }
             {
                 
+            }
+        }
+
+        private void openXML_Click(object sender, EventArgs e)
+        {
+            if (ofdXML.ShowDialog() == DialogResult.OK)
+            {
+                lstXML.Items.AddRange(File.ReadAllLines(ofdXML.FileName));
             }
         }
     }
