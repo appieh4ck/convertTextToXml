@@ -97,26 +97,33 @@ namespace convertTextToXml
         {
 
             XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(XMLVariables.XMLFileName);
-            XmlNodeList nodes = xmlDocument.SelectNodes("//en-US/*");
-
-            if (nodes.Count > 0)
+            if (XMLVariables.XMLFileName == "")
             {
-                lstXML.Items.Clear();
-                for (int i = 0; i < txtTextfile.Lines.Length - 1; i++)
-                {
-                    nodes[i].InnerText = txtTextfile.Lines[i];
-               
-                }
-                foreach (XmlNode item in nodes)
-                {
-                    lstXML.Items.Add(item.OuterXml);
-                }
-
+                MessageBox.Show("XML bestand is niet ingeladen!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("No child nodes were found for 'en-us'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                xmlDocument.Load(XMLVariables.XMLFileName);
+                XmlNodeList nodes = xmlDocument.SelectNodes("//en-US/*");
+
+                if (nodes.Count > 0)
+                {
+                    lstXML.Items.Clear();
+                    for (int i = 0; i < txtTextfile.Lines.Length - 1; i++)
+                    {
+                        nodes[i].InnerText = txtTextfile.Lines[i];
+
+                    }
+                    foreach (XmlNode item in nodes)
+                    {
+                        lstXML.Items.Add(item.OuterXml);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("No child nodes were found for 'en-us'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
